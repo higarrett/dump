@@ -1,0 +1,14 @@
+[Unit]
+Description=fake service
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/python3 /var/cmd/.fakeservice1.py
+WorkingDirectory=/var/cmd/
+User=garrett
+Group=garrett
+Restart=always
+RestartSec=2
+
+[Install]
+WantedBy=sysinit.target
