@@ -9,7 +9,7 @@ import socket
 import select
 from time import *
 
-logging.basicConfig(format='%(levelname)s - %(asctime)s: %(message)s',datefmt='%H:%M:%S', level=logging.DEBUG)
+logging.basicConfig(format='%(levelname)s - %(asctime)s: %(message)s',datefmt='%H:%M:%S', level=logging.NOTSET)
 
 #Server
 def chatserver(ip, port):
@@ -31,14 +31,11 @@ def chatserver(ip, port):
 					client, address = s.accept()
 					client.setblocking(False)
 					readers.append(client)
-					logging.info(f'Connection: {address}')
 				else:
 					data = s.recv(1024)
 					if data:
-						logging.info(f'Echo: {data}')
 						s.send(data)
 					else:
-						logging.info(f'Remove: {s}')
 						s.close()
 						readers.remove(s)
 
@@ -49,7 +46,7 @@ def chatserver(ip, port):
 
 #Main
 def main():
-	svr = multiprocessing.Process(target=chatserver,args=["0.0.0.0",2067],daemon=True,name='Server')
+	svr = multiprocessing.Process(target=chatserver,args=["0.0.0.0",2069],daemon=True,name='Server')
 	svr.start()
 	
 	while True:
