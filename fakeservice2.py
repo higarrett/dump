@@ -31,14 +31,11 @@ def chatserver(ip, port):
 					client, address = s.accept()
 					client.setblocking(False)
 					readers.append(client)
-					logging.info(f'Connection: {address}')
 				else:
 					data = s.recv(1024)
 					if data:
-						logging.info()
-						#s.send(data)
+						s.send('hi'.encode())
 					else:
-						logging.info(f'Remove: {s}')
 						s.close()
 						readers.remove(s)
 
@@ -49,7 +46,7 @@ def chatserver(ip, port):
 
 #Main
 def main():
-	svr = multiprocessing.Process(target=chatserver,args=["0.0.0.0",2071],daemon=True,name='Server')
+	svr = multiprocessing.Process(target=chatserver,args=["0.0.0.0",10472],daemon=True,name='Server')
 	svr.start()
 	
 	while True:
